@@ -12,12 +12,12 @@ An EKS cluster configured with Terraform and Terragrunt.
 
 3. Install [Helm](https://helm.sh/docs/intro/install/)
 
-This project assumes there is already a Hosted Zone in AWS Route53 for the domain included in the configuration file (`live/config.yml`, see below), and an AWS ACM certificate for that same domain.
+This project assumes there is already a Hosted Zone in AWS Route53 for the domain listed in the configuration file (`live/config.yml`, see below), and an AWS ACM certificate for that same domain.
 
 
 ## Configuration
 
-Configuration all modules is defined in a single file: `live/config.yml`.
+Configuration for all modules is defined in a single file: `live/config.yml`.
 
 Create that file following the example and fill in the values:
 

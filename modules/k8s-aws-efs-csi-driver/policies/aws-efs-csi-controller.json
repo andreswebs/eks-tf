@@ -1,0 +1,55 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowDescribe",
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:DescribeAccessPoints",
+        "elasticfilesystem:DescribeFileSystems"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowCreateAP",
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:CreateAccessPoint"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringLike": {
+          "aws:RequestTag/efs.csi.aws.com/cluster": "true"
+        }
+      }
+    },
+    {
+      "Sid": "AllowDeleteAP",
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:DeleteAccessPoint"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/efs.csi.aws.com/cluster": "true"
+        }
+      }
+    },
+    {
+      "Sid": "AllowClientAccess",
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:ClientRootAccess",
+        "elasticfilesystem:ClientWrite",
+        "elasticfilesystem:ClientMount"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "Bool": {
+          "elasticfilesystem:AccessedViaMountTarget": "true"
+        }
+      }
+    }
+  ]
+}

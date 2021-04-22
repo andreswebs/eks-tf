@@ -1,0 +1,17 @@
+remote_state {
+  backend = "s3"
+
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite_terragrunt"
+  }
+
+  config = {
+    region         = "us-east-1"
+    bucket         = "the-bucket-name"
+    dynamodb_table = "tfstate-lock"
+
+    key            = "eks-tf/${path_relative_to_include()}/terraform.tfstate"
+    encrypt        = true
+  }
+}

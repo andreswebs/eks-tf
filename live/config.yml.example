@@ -1,0 +1,17 @@
+eks_cluster_name: yourclustername
+
+eks_cluster_version: "1.19"
+
+domain_name: tmp.example.com
+
+aws_region: us-east-1
+
+network_name: your-eks-net-name
+
+kms_key_name: giveanametoyourkmskey
+
+ssh_key_name: giveanametoyoursshkey
+
+eks_admin_role_name: eks-admin
+
+k8s_monitoring_namespace: monitoring

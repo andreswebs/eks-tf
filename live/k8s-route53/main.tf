@@ -34,7 +34,7 @@ provider "helm" {
 data "kubernetes_service" "grafana" {
   metadata {
     name      = "grafana"
-    namespace = "monitoring"
+    namespace = var.k8s_monitoring_namespace
   }
 }
 

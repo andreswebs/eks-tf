@@ -42,7 +42,7 @@ module "ec2_role" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "14.0.0"
+  version = "15.1.0"
 
   create_eks       = var.create_eks
   write_kubeconfig = var.write_kubeconfig

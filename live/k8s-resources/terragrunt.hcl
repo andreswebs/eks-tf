@@ -28,18 +28,18 @@ inputs = {
   k8s_monitoring_namespace = local.config.k8s_monitoring_namespace
 }
 
-terraform {
-
-  before_hook "metrics_server" {
-    commands     = ["apply"]
-    execute      = ["kubectl", "apply", "-f", local.manifest_metrics_server]
-    run_on_error = true
-  }
-
-  before_hook "aws_lb_controller" {
-    commands     = ["apply"]
-    execute      = ["kubectl", "apply", "-k", local.manifest_aws_lb_controller]
-    run_on_error = true
-  }
-
-}
+# terraform {
+#
+#   before_hook "metrics_server" {
+#     commands     = ["apply"]
+#     execute      = ["kubectl", "apply", "-f", local.manifest_metrics_server]
+#     run_on_error = true
+#   }
+#
+#   before_hook "aws_lb_controller" {
+#     commands     = ["apply"]
+#     execute      = ["kubectl", "apply", "-k", local.manifest_aws_lb_controller]
+#     run_on_error = true
+#   }
+#
+# }

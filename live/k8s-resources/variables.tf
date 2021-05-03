@@ -19,3 +19,21 @@ variable "k8s_monitoring_namespace" {
   type = string
   default = "monitoring"
 }
+
+variable "flux_repository_name" {
+  type = string
+}
+
+variable "git_branch" {
+  type = string
+}
+
+variable "github_owner" {
+  type        = string
+  description = "GitHub owner"
+}
+
+variable "github_token" {
+  type        = string
+  description = "GitHub token"
+}

@@ -1,5 +1,5 @@
 /**
-* # aws-lb-controller
+* # k8s-aws-lb-controller
 *
 * Deploys the AWS Load Balancer Controller on the kube-system namespace
 *

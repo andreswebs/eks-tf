@@ -1,5 +1,5 @@
 /**
-* # k8s-aws-efs
+* # k8s-aws-efs-csi-driver
 *
 * Deploys the Amazon EFS CSI driver with proper IAM permissions, and an EFS filesystem
 *

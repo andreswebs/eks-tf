@@ -1,6 +1,6 @@
-# k8s-monitoring
+# k8s-elasticsearch
 
-Deploys a monitoring stack in a namespace in Kubernetes
+Deploys the elastic stack in a namespace in Kubernetes
 
 ## Requirements
 
@@ -32,8 +32,7 @@ No Modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cert\_arn | ARN of TLS certificate from AWS Certificate Manager | `string` | n/a | yes |
-| namespace | Name of a namespace which will be created for deploying the resources | `string` | `"monitoring"` | no |
+| namespace | Name of a namespace which will be created for deploying the resources | `string` | `"elastic"` | no |
 
 ## Outputs
 

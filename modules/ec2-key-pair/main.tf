@@ -1,3 +1,11 @@
+/**
+ * # ec2-key-pair
+ *
+ * Deploys an SSH key pair and stores the private key in
+ * a SecureString SSM parameter.
+ *
+ */
+
 resource "tls_private_key" "this" {
   algorithm = "RSA"
 }

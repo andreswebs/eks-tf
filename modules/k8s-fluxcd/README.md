@@ -50,7 +50,7 @@ No Modules.
 | github\_owner | GitHub owner | `string` | n/a | yes |
 | namespace | Name of a namespace which will be created for deploying the resources | `string` | `"flux-system"` | no |
 | repository\_name | Name of an existing Git repository to store the FluxCD manifests | `string` | n/a | yes |
-| target\_path | Target path for storing FluxCD manifests in the Git repository | `string` | `"flux"` | no |
+| target\_path | Target path for storing FluxCD manifests in the Git repository | `string` | `"."` | no |
 
 ## Outputs
 

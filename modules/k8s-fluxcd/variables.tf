@@ -11,7 +11,7 @@ variable "repository_name" {
 
 variable "target_path" {
   type = string
-  default = "flux"
+  default = "."
   description = "Target path for storing FluxCD manifests in the Git repository"
 }
 
@@ -25,11 +25,6 @@ variable "github_owner" {
   type        = string
   description = "GitHub owner"
 }
-
-# variable "github_token" {
-#   type        = string
-#   description = "GitHub token"
-# }
 
 variable "github_deploy_key_title" {
   type = string

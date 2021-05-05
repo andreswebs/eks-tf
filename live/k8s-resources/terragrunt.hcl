@@ -14,6 +14,10 @@ dependency "route53" {
   config_path = "${path_relative_from_include()}/route53"
 }
 
+dependency "env_secrets" {
+  config_path = "${path_relative_from_include()}/env-secrets"
+}
+
 locals {
   config = yamldecode(file(find_in_parent_folders("config.yml")))
   manifest_metrics_server = "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
@@ -26,6 +30,10 @@ inputs = {
   eks_cluster_id = dependency.k8s.outputs.cluster_id
   acm_cert_arn = dependency.route53.outputs.cert_arn
   k8s_monitoring_namespace = local.config.k8s_monitoring_namespace
+  github_token = dependency.env_secrets.outputs.github_token
+  github_owner = local.config.github_owner
+  flux_repository_name = local.config.flux_repository_name
+  flux_git_branch = local.config.flux_git_branch
 }
 
 # terraform {

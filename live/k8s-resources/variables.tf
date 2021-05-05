@@ -24,7 +24,7 @@ variable "flux_repository_name" {
   type = string
 }
 
-variable "git_branch" {
+variable "flux_git_branch" {
   type = string
 }
 
@@ -36,4 +36,5 @@ variable "github_owner" {
 variable "github_token" {
   type        = string
   description = "GitHub token"
+  sensitive   = true
 }

@@ -101,6 +101,6 @@ module "aws_lb_controller" {
 module "fluxcd" {
   source = "../../modules/k8s-fluxcd"
   repository_name = var.flux_repository_name
-  git_branch = var.git_branch
+  git_branch = var.flux_git_branch
   github_owner = var.github_owner
 }

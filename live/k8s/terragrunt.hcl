@@ -30,10 +30,10 @@ inputs = {
   public_subnets = dependency.network.outputs.public_subnets
 }
 
-terraform {
-  before_hook "remove_aws_auth" {
-    commands     = ["destroy"]
-    execute      = ["terraform", "state", "rm", "module.eks.kubernetes_config_map.aws_auth"]
-    run_on_error = false
-  }
-}
+# terraform {
+#   before_hook "remove_aws_auth" {
+#     commands     = ["destroy"]
+#     execute      = ["terraform", "state", "rm", "module.eks.kubernetes_config_map.aws_auth"]
+#     run_on_error = false
+#   }
+# }

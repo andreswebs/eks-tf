@@ -14,16 +14,15 @@ checks:
       name: version
       action: isPresent
   - code: XAWSIAM001
-    description: Use data resource instead of JSON for IAM policies
-    errorMessage: Using JSON for IAM policy
+    description: Use data resource with IAM policies
+    errorMessage: Missing policy document
     severity: INFO
-    impact: Typos
-    resolution: Use `data.aws_iam_policy_document` instead of JSON for declaring IAM policies
+    impact: Potential typos when writing literal JSON
+    resolution: Use `data.aws_iam_policy_document` for declaring IAM policies
     requiredTypes:
       - resource
     requiredLabels:
       - aws_iam_policy
     matchSpec:
-      name: policy
-      action: startsWith
-      value: data.aws_iam_policy_document
+      name: aws_iam_policy_document
+      action: requiresPresence

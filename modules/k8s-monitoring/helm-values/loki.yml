@@ -6,7 +6,7 @@
 persistence:
   enabled: false
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   size: 10Gi
   annotations: {}
   # selector:

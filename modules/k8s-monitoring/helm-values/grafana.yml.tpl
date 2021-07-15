@@ -1,4 +1,41 @@
 ---
+rbac:
+  create: true
+  ## Use an existing ClusterRole/Role (depending on rbac.namespaced false/true)
+  # useExistingRole: name-of-some-(cluster)role
+  pspEnabled: true
+  pspUseAppArmor: true
+  namespaced: false
+  extraRoleRules: []
+  # - apiGroups: []
+  #   resources: []
+  #   verbs: []
+  extraClusterRoleRules: []
+  # - apiGroups: []
+  #   resources: []
+  #   verbs: []
+
+serviceAccount:
+  create: true
+  name: ${grafana_service_account_name}
+  nameTest:
+  annotations:
+    eks.amazonaws.com/role-arn: ${grafana_iam_role_arn}
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 60
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 60
+
 persistence:
   enabled: false
   # type: pvc
@@ -12,6 +49,23 @@ persistence:
   # # selectorLabels: {}
   # # subPath: ""
   # # existingClaim:
+
+persistence:
+  enabled: false
+  # type: pvc
+  # storageClassName: default
+  # accessModes:
+  #   - ReadWriteOnce
+  # size: 10Gi
+  # annotations: {}
+  # finalizers:
+  #   - kubernetes.io/pvc-protection
+  # # selectorLabels: {}
+  # # subPath: ""
+  # # existingClaim:
+  inMemory:
+    enabled: true
+    sizeLimit: 300Mi
 
 adminUser: admin
 # adminPassword: strongpassword
@@ -40,13 +94,22 @@ datasources:
         editable: true
       - name: Loki
         type: loki
-        url: http://${loki_svc}:3100
+        url: http://${loki_svc}
         isDefault: false
         basicAuth: false
         withCredentials: false
         editable: true
+      - name: CloudWatch
+        type: cloudwatch
+        access: proxy
+        uid: cloudwatch
+        editable: false
+        jsonData:
+          authType: default
+          defaultRegion: ${aws_region}
 
 service:
+  enabled: true
   type: LoadBalancer
   port: 443
   targetPort: 3000
@@ -57,4 +120,3 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: ${cert_arn}
-

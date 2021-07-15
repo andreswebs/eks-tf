@@ -6,16 +6,17 @@ Deploys the Amazon EFS CSI driver with proper IAM permissions, and an EFS filesy
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.14 |
-| helm | >= 2.0.2 |
-| kubernetes | >= 2.0.2 |
+| terraform | >= 1.0.0 |
+| aws | 3.46.0 |
+| helm | >= 2.2.0 |
+| kubernetes | >= 2.3.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
-| helm | >= 2.0.2 |
+| aws | 3.46.0 |
+| helm | >= 2.2.0 |
 
 ## Modules
 
@@ -27,9 +28,9 @@ Deploys the Amazon EFS CSI driver with proper IAM permissions, and an EFS filesy
 
 | Name |
 |------|
-| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
-| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
-| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/3.46.0/docs/resources/iam_policy) |
+| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/3.46.0/docs/resources/iam_role) |
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/3.46.0/docs/data-sources/region) |
 | [helm_release](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) |
 
 ## Inputs

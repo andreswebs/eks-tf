@@ -12,3 +12,8 @@ output "k8s_sa_namespace" {
   value       = var.k8s_sa_namespace
   description = "Namespace of the Kubernetes service account"
 }
+
+output "oidc_provider" {
+  value       = local.oidc_provider
+  description = "Cluster OIDC provider"
+}

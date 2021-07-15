@@ -6,18 +6,23 @@
 */
 
 terraform {
-  required_version = ">= 0.14"
+  required_version = ">= 1.0.0"
 
   required_providers {
 
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.46.0"
+    }
+
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.0.2"
+      version = ">= 2.3.2"
     }
 
     helm = {
       source  = "hashicorp/helm"
-      version = ">= 2.0.2"
+      version = ">= 2.2.0"
     }
 
   }
@@ -26,6 +31,9 @@ terraform {
 locals {
   name      = "aws-load-balancer-controller"
   namespace = "kube-system"
+  chart_versions = {
+    aws_lb_controller = "1.1.6"
+  }
   labels = {
     "app.kubernetes.io/name" = "aws-load-balancer-controller"
   }
@@ -66,6 +74,7 @@ resource "helm_release" "aws_lb_controller" {
   namespace  = kubernetes_service_account.aws_lb_controller.metadata[0].namespace
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
+  version    = local.chart_versions["aws_lb_controller"]
 
   recreate_pods   = true
   reuse_values    = true

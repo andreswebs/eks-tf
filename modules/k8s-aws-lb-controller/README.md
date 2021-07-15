@@ -6,17 +6,18 @@ Deploys the AWS Load Balancer Controller on the kube-system namespace
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.14 |
-| helm | >= 2.0.2 |
-| kubernetes | >= 2.0.2 |
+| terraform | >= 1.0.0 |
+| aws | 3.46.0 |
+| helm | >= 2.2.0 |
+| kubernetes | >= 2.3.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
-| helm | >= 2.0.2 |
-| kubernetes | >= 2.0.2 |
+| aws | 3.46.0 |
+| helm | >= 2.2.0 |
+| kubernetes | >= 2.3.2 |
 
 ## Modules
 
@@ -28,8 +29,8 @@ Deploys the AWS Load Balancer Controller on the kube-system namespace
 
 | Name |
 |------|
-| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
-| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/3.46.0/docs/resources/iam_policy) |
+| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/3.46.0/docs/resources/iam_role) |
 | [helm_release](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) |
 | [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) |
 

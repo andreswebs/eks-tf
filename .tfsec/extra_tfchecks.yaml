@@ -13,3 +13,17 @@ checks:
     matchSpec:
       name: version
       action: isPresent
+  - code: XAWSIAM001
+    description: Use data resource instead of JSON for IAM policies
+    errorMessage: Using JSON for IAM policy
+    severity: INFO
+    impact: Typos
+    resolution: Use `data.aws_iam_policy_document` instead of JSON for declaring IAM policies
+    requiredTypes:
+      - resource
+    requiredLabels:
+      - aws_iam_policy
+    matchSpec:
+      name: policy
+      action: startsWith
+      value: data.aws_iam_policy_document

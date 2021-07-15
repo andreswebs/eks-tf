@@ -42,7 +42,7 @@ resource "helm_release" "elasticsearch" {
   repository = "https://helm.elastic.co"
   chart      = "elasticsearch"
   namespace  = local.elastic_namespace
-  version    = local.chart_versions["elasticsearch"]
+  # version    = local.chart_versions["elasticsearch"]
 
   recreate_pods   = true
   reuse_values    = true

@@ -1,0 +1,15 @@
+---
+checks:
+  - code: XHELM001
+    description: Ensure that Helm chart releases are versioned
+    severity: ERROR
+    errorMessage: Missing chart version
+    impact: Dependent resources may break when latest chart versions are deployed implicitly
+    resolution: Add a version number
+    requiredTypes:
+      - resource
+    requiredLabels:
+      - helm_release
+    matchSpec:
+      name: version
+      action: isPresent

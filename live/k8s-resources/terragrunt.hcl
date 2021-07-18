@@ -30,10 +30,11 @@ inputs = {
   eks_cluster_id = dependency.k8s.outputs.cluster_id
   acm_cert_arn = dependency.route53.outputs.cert_arn
   k8s_monitoring_namespace = local.config.k8s_monitoring_namespace
-  github_token = dependency.env_secrets.outputs.github_token
-  github_owner = local.config.github_owner
+  flux_github_token = dependency.env_secrets.outputs.github_token
+  flux_github_owner = local.config.flux_github_owner
   flux_repository_name = local.config.flux_repository_name
   flux_git_branch = local.config.flux_git_branch
+  chartmuseum_s3_bucket_name = local.config.chartmuseum_s3_bucket_name
 }
 
 # terraform {

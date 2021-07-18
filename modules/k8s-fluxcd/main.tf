@@ -13,12 +13,12 @@ terraform {
 
     github = {
       source = "integrations/github"
-      version = "4.5.2"
+      version = ">= 4.12.2"
     }
 
     tls = {
       source  = "hashicorp/tls"
-      version = "3.1.0"
+      version = ">= 3.1.0"
     }
 
     kubernetes = {
@@ -59,9 +59,9 @@ resource "tls_private_key" "this" {
   rsa_bits  = 4096
 }
 
-resource "kubernetes_namespace" "flux_system" {
+resource "kubernetes_namespace" "flux" {
   metadata {
-    name = var.namespace
+    name = var.flux_namespace
   }
 
   lifecycle {
@@ -88,7 +88,7 @@ locals {
 # Apply manifests on the cluster
 resource "kubectl_manifest" "apply" {
   for_each   = { for v in local.apply : lower(join("/", compact([v.data.apiVersion, v.data.kind, lookup(v.data.metadata, "namespace", ""), v.data.metadata.name]))) => v.content }
-  depends_on = [kubernetes_namespace.flux_system]
+  depends_on = [kubernetes_namespace.flux]
   yaml_body = each.value
 }
 

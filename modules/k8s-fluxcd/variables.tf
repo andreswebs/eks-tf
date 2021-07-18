@@ -1,4 +1,4 @@
-variable "namespace" {
+variable "flux_namespace" {
   type        = string
   default     = "flux-system"
   description = "Name of a namespace which will be created for deploying the resources"

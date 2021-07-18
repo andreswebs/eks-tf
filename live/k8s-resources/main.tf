@@ -1,23 +1,27 @@
-
 terraform {
 
-  required_version = ">= 0.14"
+  required_version = ">= 1.0.0"
 
   required_providers {
-
-    github = {
-      source = "integrations/github"
-      version = "4.5.2"
-    }
-
-    tls = {
-      source  = "hashicorp/tls"
-      version = "3.1.0"
-    }
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = ">= 2.0.2"
+    }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.0.2"
+    }
+
+    github = {
+      source  = "integrations/github"
+      version = "4.12.2"
+    }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 3.1.0"
     }
 
     kubectl = {
@@ -76,8 +80,12 @@ provider "kubectl" {
 }
 
 provider "github" {
-  owner = var.github_owner
-  token = var.github_token
+  owner = var.flux_github_owner
+  token = var.flux_github_token
+}
+
+locals {
+  flux_namespace = "flux-system"
 }
 
 ## Note: depends on an imperative deployment of Metrics Server
@@ -102,5 +110,15 @@ module "fluxcd" {
   source = "../../modules/k8s-fluxcd"
   repository_name = var.flux_repository_name
   git_branch = var.flux_git_branch
-  github_owner = var.github_owner
+  github_owner = var.flux_github_owner
+  flux_namespace = local.flux_namespace
+}
+
+module "chartmuseum" {
+  source                = "../../modules/k8s-chartmuseum"
+  depends_on            = [module.fluxcd]
+  s3_bucket_name        = var.chartmuseum_s3_bucket_name
+  s3_object_key_prefix  = var.chartmuseum_s3_object_key_prefix
+  k8s_namespace         = local.flux_namespace
+  cluster_oidc_provider = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
 }

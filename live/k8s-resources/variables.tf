@@ -26,15 +26,27 @@ variable "flux_repository_name" {
 
 variable "flux_git_branch" {
   type = string
+  default = "main"
 }
 
-variable "github_owner" {
+variable "flux_github_owner" {
   type        = string
   description = "GitHub owner"
 }
 
-variable "github_token" {
+variable "flux_github_token" {
   type        = string
   description = "GitHub token"
   sensitive   = true
+}
+
+variable "chartmuseum_s3_bucket_name" {
+  type        = string
+  description = "S3 bucket for chartmuseum storage"
+}
+
+variable "chartmuseum_s3_object_key_prefix" {
+  type        = string
+  description = "Prefix for chart names in S3"
+  default = "charts/"
 }

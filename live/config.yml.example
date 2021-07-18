@@ -15,3 +15,11 @@ ssh_key_name: giveanametoyoursshkey
 eks_admin_role_name: eks-admin
 
 k8s_monitoring_namespace: monitoring
+
+flux_repository_name: k8s-fleet
+
+flux_git_branch: main
+
+flux_github_owner: yourgithubname
+
+chartmuseum_s3_bucket_name: yourbucketname

@@ -13,7 +13,7 @@ terraform {
 data "aws_partition" "current" {}
 
 locals {
-  s3_bucket_arn = "arn:aws:${data.aws_partition.current.partition}:s3:::${var.s3_bucket_name}"
+  s3_bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${var.s3_bucket_name}"
 }
 
 data "aws_iam_policy_document" "storage_read" {
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "storage_readwrite" {
     sid = "AllowWrite"
     actions = [
       "s3:DeleteObject",
-      "s3:GetObject"
+      "s3:PutObject"
     ]
     resources = ["${local.s3_bucket_arn}/*"]
   }

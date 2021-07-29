@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "bucket_crud" {
 }
 
 module "loki_assume_role_policy" {
-  source                = "../k8s-assume-role-policy"
+  source                = "andreswebs/eks-irsa-policy-document/aws"
   cluster_oidc_provider = var.cluster_oidc_provider
   k8s_sa_name           = var.loki_service_account_name
   k8s_sa_namespace      = local.monitoring_namespace
@@ -76,7 +76,7 @@ resource "aws_iam_role_policy" "loki_permissions" {
 }
 
 module "loki_compactor_assume_role_policy" {
-  source                = "../k8s-assume-role-policy"
+  source                = "andreswebs/eks-irsa-policy-document/aws"
   cluster_oidc_provider = var.cluster_oidc_provider
   k8s_sa_name           = var.loki_compactor_service_account_name
   k8s_sa_namespace      = local.monitoring_namespace

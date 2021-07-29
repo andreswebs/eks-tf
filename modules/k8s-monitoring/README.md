@@ -25,9 +25,9 @@ Deploys the "Grafana + Prometheus + Loki" monitoring stack in a selected namespa
 
 | Name | Source | Version |
 |------|--------|---------|
-| grafana_assume_role_policy | ../k8s-assume-role-policy |  |
-| loki_assume_role_policy | ../k8s-assume-role-policy |  |
-| loki_compactor_assume_role_policy | ../k8s-assume-role-policy |  |
+| grafana_assume_role_policy | andreswebs/eks-irsa-policy-document/aws |  |
+| loki_assume_role_policy | andreswebs/eks-irsa-policy-document/aws |  |
+| loki_compactor_assume_role_policy | andreswebs/eks-irsa-policy-document/aws |  |
 
 ## Resources
 

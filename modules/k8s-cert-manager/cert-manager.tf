@@ -1,5 +1,5 @@
 module "cert_manager_assume_role_policy" {
-  source                = "../k8s-assume-role-policy"
+  source                = "andreswebs/eks-irsa-policy-document/aws"
   cluster_oidc_provider = var.cluster_oidc_provider
   k8s_sa_name           = var.cert_manager_service_account_name
   k8s_sa_namespace      = local.cert_manager_namespace

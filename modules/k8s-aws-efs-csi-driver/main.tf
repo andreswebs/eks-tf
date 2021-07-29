@@ -46,7 +46,7 @@ resource "aws_iam_policy" "aws_efs_csi_controller" {
 }
 
 module "assume_role_policy" {
-  source                = "../k8s-assume-role-policy"
+  source                = "andreswebs/eks-irsa-policy-document/aws"
   k8s_sa_name           = local.k8s_sa_name
   k8s_sa_namespace      = local.namespace
   cluster_oidc_provider = var.cluster_oidc_provider

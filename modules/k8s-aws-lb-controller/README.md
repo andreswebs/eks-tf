@@ -23,7 +23,7 @@ Deploys the AWS Load Balancer Controller on the kube-system namespace
 
 | Name | Source | Version |
 |------|--------|---------|
-| assume_role_policy | ../k8s-assume-role-policy |  |
+| assume_role_policy | andreswebs/eks-irsa-policy-document/aws |  |
 
 ## Resources
 

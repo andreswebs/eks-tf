@@ -1,5 +1,5 @@
 module "grafana_assume_role_policy" {
-  source                = "../k8s-assume-role-policy"
+  source                = "andreswebs/eks-irsa-policy-document/aws"
   cluster_oidc_provider = var.cluster_oidc_provider
   k8s_sa_name           = var.grafana_service_account_name
   k8s_sa_namespace      = local.monitoring_namespace

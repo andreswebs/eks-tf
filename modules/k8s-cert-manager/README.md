@@ -23,7 +23,7 @@ Deploys [cert-manager](https://cert-manager.io).
 
 | Name | Source | Version |
 |------|--------|---------|
-| cert_manager_assume_role_policy | ../k8s-assume-role-policy |  |
+| cert_manager_assume_role_policy | andreswebs/eks-irsa-policy-document/aws |  |
 
 ## Resources
 

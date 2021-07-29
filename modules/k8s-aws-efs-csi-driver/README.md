@@ -22,7 +22,7 @@ Deploys the Amazon EFS CSI driver with proper IAM permissions, and an EFS filesy
 
 | Name | Source | Version |
 |------|--------|---------|
-| assume_role_policy | ../k8s-assume-role-policy |  |
+| assume_role_policy | andreswebs/eks-irsa-policy-document/aws |  |
 
 ## Resources
 

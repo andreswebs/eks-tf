@@ -25,7 +25,7 @@ terraform {
 data "aws_region" "current" {}
 
 module "k8s_assume_role_policy" {
-  source                = "../../../k8s-assume-role-policy"
+  source                = "andreswebs/eks-irsa-policy-document/aws"
   k8s_sa_name           = var.k8s_sa_name
   k8s_sa_namespace      = var.k8s_namespace
   cluster_oidc_provider = var.cluster_oidc_provider

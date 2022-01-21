@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
-
 data "aws_partition" "current" {}
 
 data "aws_caller_identity" "current" {}

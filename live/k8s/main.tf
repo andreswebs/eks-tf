@@ -1,14 +1,3 @@
-provider "aws" {
-
-  region = var.aws_region
-
-  assume_role {
-    role_arn     = var.eks_admin_role_arn
-    session_name = "terraform"
-  }
-
-}
-
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
@@ -24,7 +13,8 @@ provider "kubernetes" {
 }
 
 module "ec2_role" {
-  source       = "../../modules/ec2-role"
+  source       = "andreswebs/ec2-role/aws"
+  version      = "1.0.0"
   role_name    = "eks-worker-node"
   profile_name = "eks-worker-node"
   policies = [

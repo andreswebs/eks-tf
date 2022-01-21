@@ -1,8 +1,3 @@
-variable "aws_region" {
-  type = string
-  default = "us-east-1"
-}
-
 variable "create_eks" {
   type    = bool
   default = true

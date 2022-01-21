@@ -1,8 +1,3 @@
-variable "aws_region" {
-  type = string
-  default = "us-east-1"
-}
-
 variable "eks_admin_role_arn" {
   type = string
 }
@@ -16,7 +11,7 @@ variable "acm_cert_arn" {
 }
 
 variable "k8s_monitoring_namespace" {
-  type = string
+  type    = string
   default = "monitoring"
 }
 
@@ -25,7 +20,7 @@ variable "flux_repository_name" {
 }
 
 variable "flux_git_branch" {
-  type = string
+  type    = string
   default = "main"
 }
 
@@ -48,5 +43,5 @@ variable "chartmuseum_s3_bucket_name" {
 variable "chartmuseum_s3_object_key_prefix" {
   type        = string
   description = "Prefix for chart names in S3"
-  default = "charts/"
+  default     = "charts/"
 }

@@ -1,6 +1,6 @@
 eks_cluster_name: yourclustername
 
-eks_cluster_version: "1.19"
+eks_cluster_version: "1.21"
 
 domain_name: tmp.example.com
 

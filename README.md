@@ -1,6 +1,5 @@
 # eks-tf
 
-
 An EKS cluster configured with Terraform and Terragrunt.
 
 
@@ -47,6 +46,7 @@ To delete all the resources, run:
 cd ./live
 terragrunt run-all destroy
 ```
+
 
 ## Authors
 

@@ -20,7 +20,6 @@ jobs:
         with:
           config_file: .tfsec/config.yml
           sarif_file: tfsec.sarif
-          tfsec_args: --detailed-exit-code
 
       - name: Archive SARIF file
         uses: actions/upload-artifact@v2

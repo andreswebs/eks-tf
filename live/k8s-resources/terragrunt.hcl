@@ -20,8 +20,6 @@ dependency "env_secrets" {
 
 locals {
   config = yamldecode(file(find_in_parent_folders("config.yml")))
-  manifest_metrics_server = "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
-  manifest_aws_lb_controller = "https://github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
 }
 
 inputs = {
@@ -37,18 +35,3 @@ inputs = {
   chartmuseum_s3_bucket_name = local.config.chartmuseum_s3_bucket_name
 }
 
-# terraform {
-#
-#   before_hook "metrics_server" {
-#     commands     = ["apply"]
-#     execute      = ["kubectl", "apply", "-f", local.manifest_metrics_server]
-#     run_on_error = true
-#   }
-#
-#   before_hook "aws_lb_controller" {
-#     commands     = ["apply"]
-#     execute      = ["kubectl", "apply", "-k", local.manifest_aws_lb_controller]
-#     run_on_error = true
-#   }
-#
-# }

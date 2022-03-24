@@ -28,7 +28,7 @@ data "kubernetes_service" "grafana" {
 }
 
 locals {
-  grafana   = regex("^[^-]*", data.kubernetes_service.grafana.status[0].load_balancer[0].ingress[0].hostname)
+  grafana = regex("^[^-]*", data.kubernetes_service.grafana.status[0].load_balancer[0].ingress[0].hostname)
 }
 
 data "aws_lb" "grafana" {

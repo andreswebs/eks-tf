@@ -19,43 +19,36 @@ data "aws_iam_policy_document" "eks_admin" {
   }
 }
 
-
-module "s3-requisites-for-ssm-policy-document" {
-  source  = "andreswebs/s3-requisites-for-ssm-policy-document/aws"
-  version = "1.0.0"
-}
-
-data "aws_iam_policy_document" "ecr_push" {
-  statement {
-    actions = [
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:PutImage",
-      "ecr:InitiateLayerUpload",
-      "ecr:UploadLayerPart",
-      "ecr:CompleteLayerUpload",
-      "ecr:GetAuthorizationToken"
-    ]
-
-    resources = ["*"]
-  }
-}
-
 resource "aws_iam_role" "eks_admin" {
   name                = var.eks_admin_role_name
   assume_role_policy  = data.aws_iam_policy_document.eks_admin.json
   managed_policy_arns = ["arn:aws:iam::aws:policy/AdministratorAccess"]
 }
 
-resource "aws_iam_policy" "s3_requisites_for_ssm" {
-  name        = "s3-requisites-for-ssm"
-  description = "Access to S3 buckets required for SSM"
-  policy      = module.s3_requisites_for_ssm.json
+module "s3_requisites_for_ssm" {
+  source  = "andreswebs/s3-requisites-for-ssm-policy-document/aws"
+  version = "1.0.0"
 }
 
-resource "aws_iam_policy" "ecr_push" {
-  name        = "ecr-push"
-  description = "Allow push images to ECR"
-  policy      = data.aws_iam_policy_document.ecr_push.json
+module "eks_worker" {
+  source       = "andreswebs/ec2-role/aws"
+  version      = "1.0.0"
+  role_name    = "eks-worker-node"
+  profile_name = "eks-worker-node"
+  policies = [
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+  ]
+  tags = {
+    eks-worker = "true"
+  }
 }
 
+resource "aws_iam_role_policy" "eks_worker_s3_requisites_for_ssm" {
+  name = "s3-requisites-for-ssm"
+  role = module.eks_worker.role.id
+  policy = module.s3_requisites_for_ssm.json
+}

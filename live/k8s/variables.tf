@@ -8,6 +8,15 @@ variable "write_kubeconfig" {
   default = false
 }
 
+variable "eks_encryption_kms_key_arn" {
+  type    = string
+  default = ""
+}
+
+variable "eks_worker_profile_name" {
+  type = string
+}
+
 variable "eks_admin_role_arn" {
   type = string
 }

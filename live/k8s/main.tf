@@ -12,23 +12,6 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
 }
 
-module "ec2_role" {
-  source       = "andreswebs/ec2-role/aws"
-  version      = "1.0.0"
-  role_name    = "eks-worker-node"
-  profile_name = "eks-worker-node"
-  policies = [
-    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
-    "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy",
-    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
-    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
-    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
-    var.policy_arn_s3_requisites_for_ssm
-  ]
-  tags = {
-    eks-worker = "true"
-  }
-}
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
@@ -46,19 +29,25 @@ module "eks" {
   vpc_id  = var.vpc_id
   subnets = concat(var.private_subnets, var.public_subnets)
 
+  cluster_enabled_log_types = ["audit"]
+
+  # cluster_encryption_config = [
+  #   {
+  #     provider_key_arn = var.eks_encryption_kms_key_arn
+  #     resources        = ["secrets"]
+  #   }
+  # ]
+
   # manage_worker_iam_resources = false
 
-  ## TODO: how to make the workers use the profile created with that module?
-  # workers_group_defaults = {
-  #   iam_instance_profile_name = module.ec2_role.instance_profile.id
-  # }
+  workers_group_defaults = {
+    iam_instance_profile_name = var.eks_worker_profile_name
+  }
 
   ## TODO
   ## https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest?tab=inputs
-  # cluster_endpoint_private_access_cidrs = # list(string)
   # cluster_create_endpoint_private_access_sg_rule = # bool
-  # cluster_enabled_log_types = # list(string)
-  # cluster_encryption_config = # list(object({ provider_key_arn = string resources = list(string) }))
+  # cluster_endpoint_private_access_cidrs = # list(string)
   # cluster_endpoint_private_access = # bool
   # cluster_endpoint_public_access = # bool
   # cluster_endpoint_public_access_cidrs = # list(string) # TODO: get from config whitelist

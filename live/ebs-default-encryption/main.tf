@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "key_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [data.aws_caller_identity.current.account_id]
     }
 
     condition {

@@ -14,6 +14,10 @@ dependency "iam" {
   config_path = "${path_relative_from_include()}/iam"
 }
 
+dependency "ec2_key_pair" {
+  config_path = "${path_relative_from_include()}/ec2-key-pair"
+}
+
 inputs = {
   aws_region = local.config.aws_region
   eks_cluster_name = local.config.eks_cluster_name

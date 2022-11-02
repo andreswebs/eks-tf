@@ -33,10 +33,6 @@ variable "ssh_key_name" {
   type = string
 }
 
-variable "policy_arn_s3_requisites_for_ssm" {
-  type = string
-}
-
 variable "vpc_id" {
   type = string
 }

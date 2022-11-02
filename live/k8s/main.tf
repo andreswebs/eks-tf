@@ -15,19 +15,15 @@ provider "kubernetes" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "17.1.0"
-
-  create_eks       = var.create_eks
-  write_kubeconfig = var.write_kubeconfig
+  version = "~> 18.30"
 
   cluster_name    = var.eks_cluster_name
   cluster_version = var.eks_cluster_version
 
   enable_irsa     = true
-  manage_aws_auth = true
 
-  vpc_id  = var.vpc_id
-  subnets = concat(var.private_subnets, var.public_subnets)
+  vpc_id = var.vpc_id
+  # subnets = concat(var.private_subnets, var.public_subnets)
 
   cluster_enabled_log_types = ["audit"]
 
@@ -40,9 +36,9 @@ module "eks" {
 
   # manage_worker_iam_resources = false
 
-  workers_group_defaults = {
-    iam_instance_profile_name = var.eks_worker_profile_name
-  }
+  # workers_group_defaults = {
+  #   iam_instance_profile_name = var.eks_worker_profile_name
+  # }
 
   ## TODO
   ## https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest?tab=inputs
@@ -52,17 +48,22 @@ module "eks" {
   # cluster_endpoint_public_access = # bool
   # cluster_endpoint_public_access_cidrs = # list(string) # TODO: get from config whitelist
 
-  node_groups = {
-    workers = {
-      name             = "workers"
-      instance_types   = ["t3a.2xlarge"]
-      desired_capacity = 1
-      min_capacity     = 1
-      max_capacity     = 3
-      key_name         = var.ssh_key_name
-      subnets          = var.private_subnets
-      iam_role_arn     = module.ec2_role.role.arn
-    }
-  }
+  # node_groups = {
+  #   workers = {
+  #     name             = "workers"
+  #     instance_types   = ["t3a.2xlarge"]
+  #     desired_capacity = 1
+  #     min_capacity     = 1
+  #     max_capacity     = 3
+  #     key_name         = var.ssh_key_name
+  #     subnets          = var.private_subnets
+  #     iam_role_arn     = module.ec2_role.role.arn
+  #   }
+  # }
+
+  prefix_separator                   = ""
+  iam_role_name                      = var.eks_worker_profile_name
+  cluster_security_group_name        = var.eks_cluster_name
+  cluster_security_group_description = "EKS cluster security group."
 
 }

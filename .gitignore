@@ -1,10 +1,12 @@
 live/terragrunt.hcl
 .terragrunt-cache
 
-**/backend.tf
 **/.terraform
 **/*.tfvars*
 **/*.tfstate*
+**/*.tfbackend*
+
+**/backend.tf
 
 **/*.diff
 **/*.bak

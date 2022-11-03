@@ -20,7 +20,7 @@ module "eks" {
   cluster_name    = var.eks_cluster_name
   cluster_version = var.eks_cluster_version
 
-  enable_irsa     = true
+  enable_irsa = true
 
   vpc_id = var.vpc_id
   # subnets = concat(var.private_subnets, var.public_subnets)
@@ -48,18 +48,18 @@ module "eks" {
   # cluster_endpoint_public_access = # bool
   # cluster_endpoint_public_access_cidrs = # list(string) # TODO: get from config whitelist
 
-  # node_groups = {
-  #   workers = {
-  #     name             = "workers"
-  #     instance_types   = ["t3a.2xlarge"]
-  #     desired_capacity = 1
-  #     min_capacity     = 1
-  #     max_capacity     = 3
-  #     key_name         = var.ssh_key_name
-  #     subnets          = var.private_subnets
-  #     iam_role_arn     = module.ec2_role.role.arn
-  #   }
-  # }
+  eks_managed_node_groups = {
+    workers = {
+      name             = "workers"
+      instance_types   = ["t3a.2xlarge"]
+      desired_capacity = 1
+      min_capacity     = 1
+      max_capacity     = 3
+      key_name         = var.ssh_key_name
+      subnets          = var.private_subnets
+      iam_role_arn     = module.ec2_role.role.arn
+    }
+  }
 
   prefix_separator                   = ""
   iam_role_name                      = var.eks_worker_profile_name

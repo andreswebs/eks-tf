@@ -21,3 +21,6 @@ live/terragrunt.hcl
 # Keep examples
 !**/config.yml.example
 !live/terragrunt.hcl.example
+
+.DS_Store
+.envrc

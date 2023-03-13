@@ -108,7 +108,6 @@ module "eks" {
       max_capacity     = 3
       key_name         = var.ssh_key_name
       subnets          = var.private_subnets
-      iam_role_arn     = var.eks_worker_role_arn
     }
   }
 

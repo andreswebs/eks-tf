@@ -85,9 +85,9 @@ module "eks" {
 
   ## TODO
   ## https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest?tab=inputs
-  # cluster_create_endpoint_private_access_sg_rule = # bool
   # cluster_endpoint_private_access_cidrs = # list(string)
-  # cluster_endpoint_private_access = # bool
+
+  cluster_endpoint_private_access = true
 
   cluster_endpoint_public_access       = var.cluster_endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
@@ -120,10 +120,11 @@ module "eks" {
 }
 
 
+
 module "vpc_cni_irsa" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
-  role_name_prefix      = "VPC-CNI-IRSA"
+  role_name             = "${var.eks_cluster_name}-vpc-cni"
   attach_vpc_cni_policy = true
   vpc_cni_enable_ipv4   = true
 
@@ -133,4 +134,5 @@ module "vpc_cni_irsa" {
       namespace_service_accounts = ["kube-system:aws-node"]
     }
   }
+
 }

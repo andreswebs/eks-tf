@@ -96,7 +96,6 @@ module "eks" {
   cluster_endpoint_public_access       = var.cluster_endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
 
-
   eks_managed_node_group_defaults = {
     disk_size                  = 50
     ami_type                   = "AL2_x86_64"

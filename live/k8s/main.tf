@@ -1,5 +1,9 @@
 data "aws_caller_identity" "current" {}
 
+locals {
+  has_eks_worker_role = var.eks_worker_role_arn != null && var.eks_worker_role_arn != ""
+}
+
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
@@ -108,6 +112,8 @@ module "eks" {
       max_capacity     = 3
       key_name         = var.ssh_key_name
       subnets          = var.private_subnets
+      iam_role_arn     = var.eks_worker_role_arn
+      create_iam_role  = !local.has_eks_worker_role
     }
   }
 

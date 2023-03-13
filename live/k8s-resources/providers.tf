@@ -3,13 +3,20 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
+locals {
+  has_eks_admin_role = var.eks_admin_role_arn != null && var.eks_admin_role_arn != ""
+}
+
 provider "aws" {
 
   region = var.aws_region
 
-  assume_role {
-    role_arn     = var.eks_admin_role_arn
-    session_name = "terraform"
+  dynamic "assume_role" {
+    for_each = local.has_eks_admin_role ? [] : [1]
+    content {
+      role_arn     = var.eks_admin_role_arn
+      session_name = "terraform"
+    }
   }
 
 }

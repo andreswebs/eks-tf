@@ -101,7 +101,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     workers = {
-      name             = "workers"
+      name             = "${var.eks_cluster_name}-worker"
       instance_types   = ["t3a.2xlarge"]
       desired_capacity = 2
       min_capacity     = 1

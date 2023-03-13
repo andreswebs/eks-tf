@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
-
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -11,8 +7,9 @@ locals {
 }
 
 module "vpc" {
-  source               = "terraform-aws-modules/vpc/aws"
-  version              = "~> 3.18"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 3.18"
+
   name                 = var.network_name
   cidr                 = var.network_cidr
   azs                  = local.azs

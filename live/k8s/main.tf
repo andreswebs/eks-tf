@@ -44,11 +44,19 @@ module "eks" {
   cluster_addons = {
 
     coredns = {
-      most_recent = true
+      most_recent       = true
+      resolve_conflicts = "OVERWRITE"
     }
 
     kube-proxy = {
-      most_recent = true
+      most_recent       = true
+      resolve_conflicts = "OVERWRITE"
+    }
+
+    vpc-cni = {
+      most_recent              = true
+      resolve_conflicts        = "OVERWRITE"
+      service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
     }
 
   }
@@ -84,11 +92,18 @@ module "eks" {
   cluster_endpoint_public_access       = var.cluster_endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
 
+
+  eks_managed_node_group_defaults = {
+    disk_size                  = 50
+    ami_type                   = "AL2_x86_64"
+    iam_role_attach_cni_policy = true
+  }
+
   eks_managed_node_groups = {
     workers = {
       name             = "workers"
       instance_types   = ["t3a.2xlarge"]
-      desired_capacity = 1
+      desired_capacity = 2
       min_capacity     = 1
       max_capacity     = 3
       key_name         = var.ssh_key_name
@@ -100,6 +115,22 @@ module "eks" {
   prefix_separator                   = ""
   iam_role_name                      = var.eks_cluster_name
   cluster_security_group_name        = var.eks_cluster_name
-  cluster_security_group_description = "EKS cluster security group."
+  cluster_security_group_description = "EKS cluster security group"
 
+}
+
+
+module "vpc_cni_irsa" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+
+  role_name_prefix      = "VPC-CNI-IRSA"
+  attach_vpc_cni_policy = true
+  vpc_cni_enable_ipv4   = true
+
+  oidc_providers = {
+    main = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:aws-node"]
+    }
+  }
 }

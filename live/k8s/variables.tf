@@ -1,8 +1,3 @@
-variable "create_eks" {
-  type    = bool
-  default = true
-}
-
 variable "write_kubeconfig" {
   type    = bool
   default = false
@@ -10,15 +5,17 @@ variable "write_kubeconfig" {
 
 variable "eks_encryption_kms_key_arn" {
   type    = string
-  default = ""
+  default = null
 }
 
-variable "eks_worker_profile_name" {
-  type = string
+variable "eks_worker_role_arn" {
+  type    = string
+  default = null
 }
 
 variable "eks_admin_role_arn" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "eks_cluster_name" {
@@ -43,4 +40,14 @@ variable "public_subnets" {
 
 variable "private_subnets" {
   type = list(string)
+}
+
+variable "cluster_endpoint_public_access" {
+  type    = bool
+  default = true
+}
+
+variable "cluster_endpoint_public_access_cidrs" {
+  type    = list(string)
+  default = []
 }

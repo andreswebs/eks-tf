@@ -2,7 +2,7 @@ variable "eks_admin_role_arn" {
   type = string
 }
 
-variable "eks_cluster_id" {
+variable "eks_cluster_name" {
   type = string
 }
 
@@ -15,6 +15,6 @@ variable "route53_zone_name" {
 }
 
 variable "k8s_monitoring_namespace" {
-  type = string
+  type    = string
   default = "monitoring"
 }

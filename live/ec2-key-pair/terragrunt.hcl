@@ -9,4 +9,5 @@ locals {
 inputs = {
   aws_region  = local.config.aws_region
   ssh_key_name = local.config.ssh_key_name
+  ssm_parameter_name = "/${local.config.eks_cluster_name}/ec2-key-pair"
 }

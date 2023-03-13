@@ -1,6 +1,6 @@
 eks_cluster_name: yourclustername
 
-eks_cluster_version: "1.21"
+eks_cluster_version: "1.25"
 
 domain_name: tmp.example.com
 
@@ -23,3 +23,5 @@ flux_git_branch: main
 flux_github_owner: yourgithubname
 
 chartmuseum_s3_bucket_name: yourbucketname
+
+cidr_whitelist: []

@@ -2,14 +2,22 @@ provider "aws" {
   region = var.aws_region
 }
 
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+locals {
+  azs = slice(data.aws_availability_zones.available.names, 0, 3)
+}
+
 module "vpc" {
   source                   = "terraform-aws-modules/vpc/aws"
   version                  = "~> 3.18"
   name                     = var.network_name
-  cidr                     = "10.0.8.0/21"
-  azs                      = ["us-east-1a", "us-east-1b", "us-east-1b"]
-  private_subnets          = ["10.0.8.0/24", "10.0.9.0/24", "10.0.10.0/24"]
-  public_subnets           = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+  cidr                     = var.network_cidr
+  azs                      = local.azs
+  private_subnets          = var.private_subnets
+  public_subnets           = var.public_subnets
   enable_nat_gateway       = true
   single_nat_gateway       = true
 

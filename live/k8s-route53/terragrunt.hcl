@@ -21,7 +21,7 @@ locals {
 inputs = {
   aws_region = local.config.aws_region
   eks_admin_role_arn = dependency.iam.outputs.role_arn.eks_admin
-  eks_cluster_id = dependency.k8s.outputs.cluster_id
+  eks_cluster_name = dependency.k8s.outputs.cluster_name
   route53_zone_id = dependency.route53.outputs.zone_id
   route53_zone_name = dependency.route53.outputs.zone_name
   k8s_monitoring_namespace = local.config.k8s_monitoring_namespace

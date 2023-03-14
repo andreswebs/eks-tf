@@ -24,4 +24,8 @@ flux_github_owner: yourgithubname
 
 chartmuseum_s3_bucket_name: yourbucketname
 
-cidr_whitelist: []
+cluster_endpoint_public_access: true
+
+cluster_endpoint_public_access_cidrs: []
+
+github_token_secret: github-token

@@ -1,43 +1,3 @@
-data "aws_eks_cluster" "cluster" {
-  name = var.eks_cluster_name
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = var.eks_cluster_name
-}
-
-locals {
-  cluster_oidc_provider = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
-}
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-}
-
-provider "helm" {
-  kubernetes {
-    host                   = data.aws_eks_cluster.cluster.endpoint
-    token                  = data.aws_eks_cluster_auth.cluster.token
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  }
-}
-
-provider "flux" {}
-
-provider "kubectl" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  load_config_file       = false
-}
-
-provider "github" {
-  owner = var.flux_github_owner
-  token = var.flux_github_token
-}
-
 locals {
   flux_namespace = "flux-system"
 }
@@ -52,7 +12,7 @@ module "monitoring" {
 module "aws_lb_controller" {
   source                = "andreswebs/eks-lb-controller/aws"
   version               = "1.2.0"
-  cluster_name          = data.aws_eks_cluster.cluster.id
+  cluster_name          = data.aws_eks_cluster.cluster.name
   cluster_oidc_provider = local.cluster_oidc_provider
 }
 

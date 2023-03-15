@@ -11,12 +11,13 @@ module "fluxcd" {
   k8s_namespace       = local.flux_namespace
 }
 
-# module "monitoring" {
-#   source                = "andreswebs/eks-monitoring/aws"
-#   version               = "0.4.0"
-#   namespace             = var.k8s_monitoring_namespace
-#   cluster_oidc_provider = local.cluster_oidc_provider
-# }
+module "monitoring" {
+  source                = "andreswebs/eks-monitoring/aws"
+  version               = "0.10.0"
+  k8s_namespace         = var.k8s_monitoring_namespace
+  cluster_oidc_provider = local.cluster_oidc_provider
+  create_loki_storage   = true
+}
 
 # module "aws_lb_controller" {
 #   source                = "andreswebs/eks-lb-controller/aws"

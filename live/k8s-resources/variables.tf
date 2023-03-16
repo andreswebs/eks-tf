@@ -6,10 +6,6 @@ variable "eks_cluster_name" {
   type = string
 }
 
-variable "acm_cert_arn" {
-  type = string
-}
-
 variable "k8s_monitoring_namespace" {
   type    = string
   default = "monitoring"

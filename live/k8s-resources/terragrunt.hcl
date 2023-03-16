@@ -26,7 +26,6 @@ inputs = {
   aws_region = local.config.aws_region
   eks_admin_role_arn = dependency.iam.outputs.role_arn.eks_admin
   eks_cluster_name = dependency.k8s.outputs.cluster_name
-  acm_cert_arn = dependency.route53.outputs.cert_arn
   k8s_monitoring_namespace = local.config.k8s_monitoring_namespace
   flux_github_token = dependency.env_secrets.outputs.github_token
   flux_github_owner = local.config.flux_github_owner

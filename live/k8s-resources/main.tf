@@ -1,26 +1,13 @@
-locals {
-  flux_namespace = "flux-system"
-}
-
-module "fluxcd" {
-  source              = "andreswebs/fluxcd-bootstrap/github"
-  version             = "2.1.0"
-  git_repository_name = var.flux_repository_name
-  git_branch          = var.flux_git_branch
-  github_owner        = var.flux_github_owner
-  k8s_namespace       = local.flux_namespace
-}
-
-module "monitoring" {
-  source                        = "andreswebs/eks-monitoring/aws"
-  version                       = "0.12.0"
-  k8s_namespace                 = var.k8s_monitoring_namespace
-  cluster_oidc_provider         = local.cluster_oidc_provider
-  create_loki_storage           = true
-  loki_storage_s3_force_destroy = true
-  prometheus_enabled            = false
-  loki_storage_s3_bucket_name   = "${var.eks_cluster_name}-loki"
-}
+# module "monitoring" {
+#   source                        = "andreswebs/eks-monitoring/aws"
+#   version                       = "0.12.0"
+#   k8s_namespace                 = var.k8s_monitoring_namespace
+#   cluster_oidc_provider         = local.cluster_oidc_provider
+#   create_loki_storage           = true
+#   loki_storage_s3_force_destroy = true
+#   prometheus_enabled            = false
+#   loki_storage_s3_bucket_name   = "${var.eks_cluster_name}-loki"
+# }
 
 # module "aws_lb_controller" {
 #   source                = "andreswebs/eks-lb-controller/aws"

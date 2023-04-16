@@ -47,6 +47,22 @@ cd ./live
 terragrunt run-all apply
 ```
 
+### Order of apply
+
+```yaml
+first:
+  - iam
+  - network
+  - route53: [ domain_name ]
+
+second:
+  - k8s: [ iam, network ]
+  - env-secrets: [ github_token_secret ]
+
+third:
+  - flux-bootstrap: [ k8s, env-secrets ]
+```
+
 ## Clean up
 
 To delete all the resources, run:

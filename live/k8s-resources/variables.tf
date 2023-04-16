@@ -11,26 +11,6 @@ variable "k8s_monitoring_namespace" {
   default = "monitoring"
 }
 
-variable "flux_repository_name" {
-  type = string
-}
-
-variable "flux_git_branch" {
-  type    = string
-  default = "main"
-}
-
-variable "flux_github_owner" {
-  type        = string
-  description = "GitHub owner"
-}
-
-variable "flux_github_token" {
-  type        = string
-  description = "GitHub token"
-  sensitive   = true
-}
-
 variable "chartmuseum_s3_bucket_name" {
   type        = string
   description = "S3 bucket for chartmuseum storage"

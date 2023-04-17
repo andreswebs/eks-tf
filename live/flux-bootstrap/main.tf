@@ -4,9 +4,10 @@ locals {
 
 module "fluxcd" {
   source              = "andreswebs/fluxcd-bootstrap/github"
-  version             = "2.1.0"
+  version             = "3.0.0"
   git_repository_name = var.flux_repository_name
   git_branch          = var.flux_git_branch
   github_owner        = var.flux_github_owner
   k8s_namespace       = local.flux_namespace
+  git_target_path     = "clusters/${var.eks_cluster_name}"
 }

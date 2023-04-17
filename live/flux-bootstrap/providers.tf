@@ -21,21 +21,25 @@ provider "aws" {
 
 }
 
-data "aws_eks_cluster" "cluster" {
+data "aws_eks_cluster" "this" {
   name = var.eks_cluster_name
 }
 
+data "aws_eks_cluster_auth" "this" {
+  name = var.eks_cluster_name
+}
+
+
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+  host                   = data.aws_eks_cluster.this.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
 
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.cluster.name]
+    args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.this.name]
   }
 }
-
 
 provider "github" {
   owner = var.flux_github_owner
@@ -44,20 +48,19 @@ provider "github" {
 
 provider "flux" {
   kubernetes = {
-    host                   = data.aws_eks_cluster.cluster.endpoint
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-    exec = {
-      api_version = "client.authentication.k8s.io/v1beta1"
-      command     = "aws"
-      args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.cluster.name]
-    }
+    host                   = data.aws_eks_cluster.this.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
+    token                  = data.aws_eks_cluster_auth.this.token
   }
 
   git = {
-    url = "ssh://git@github.com/${var.flux_github_owner}/${ar.flux_repository_name}.git"
+    url    = "ssh://git@github.com/${var.flux_github_owner}/${var.flux_repository_name}.git"
+    branch = var.flux_git_branch
+
     ssh = {
       username    = "git"
-      private_key = tls_private_key.flux.private_key_pem
+      private_key = module.flux_deploy_key.deploy_key.private_key_pem
     }
   }
+
 }

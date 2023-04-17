@@ -12,7 +12,7 @@
 # module "aws_lb_controller" {
 #   source                = "andreswebs/eks-lb-controller/aws"
 #   version               = "1.2.0"
-#   cluster_name          = data.aws_eks_cluster.cluster.name
+#   cluster_name          = data.aws_eks_cluster.this.name
 #   cluster_oidc_provider = local.cluster_oidc_provider
 # }
 

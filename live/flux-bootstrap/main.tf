@@ -2,7 +2,7 @@ locals {
   flux_namespace = "flux-system"
 }
 
-module "fluxcd_deploy_key" {
+module "flux_secret" {
   source  = "andreswebs/fluxcd-deploy-key-k8s-secret/github"
   version = "1.0.0"
 
@@ -10,4 +10,10 @@ module "fluxcd_deploy_key" {
   git_repository_name = var.flux_repository_name
   git_branch          = var.flux_git_branch
   github_owner        = var.flux_github_owner
+
+  github_deploy_key_readonly = false
+}
+
+resource "flux_bootstrap_git" "this" {
+  path = "clusters/${var.eks_cluster_name}"
 }

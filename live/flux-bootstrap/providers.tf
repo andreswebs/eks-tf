@@ -59,7 +59,7 @@ provider "flux" {
 
     ssh = {
       username    = "git"
-      private_key = module.flux_deploy_key.deploy_key.private_key_pem
+      private_key = module.flux_secret.deploy_key.private_key_pem
     }
   }
 

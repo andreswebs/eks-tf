@@ -5,27 +5,20 @@ terraform {
   required_providers {
 
     kubernetes = {
-      source  = "hashicorp/kubernetes"
-    }
-
-    helm = {
-      source  = "hashicorp/helm"
+      source = "hashicorp/kubernetes"
     }
 
     github = {
-      source  = "integrations/github"
+      source = "integrations/github"
     }
 
     tls = {
-      source  = "hashicorp/tls"
-    }
-
-    kubectl = {
-      source  = "gavinbunney/kubectl"
+      source = "hashicorp/tls"
     }
 
     flux = {
       source  = "fluxcd/flux"
+      version = "1.0.0-rc.1"
     }
 
   }

@@ -6,3 +6,14 @@ module "cert_manager" {
   role_name             = "cert-manager-${var.eks_cluster_name}"
   cluster_oidc_provider = local.cluster_oidc_provider
 }
+
+module "cert_manager_policy_document" {
+  source  = "andreswebs/eks-cert-manager-iam-policy-document/aws"
+  version = "1.0.0"
+}
+
+resource "aws_iam_role_policy" "this" {
+  name   = "cert-manager-permissions"
+  role   = module.cert_manager.iam_role.id
+  policy = module.cert_manager_policy_document.json
+}

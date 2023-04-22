@@ -9,7 +9,7 @@ module "cert_manager" {
 
 module "cert_manager_policy_doc" {
   source  = "andreswebs/eks-cert-manager-iam-policy-document/aws"
-  version = "1.0.0"
+  version = "~> 1.0.0"
 }
 
 resource "aws_iam_role_policy" "cert_manager" {

@@ -22,4 +22,5 @@ inputs = {
   aws_region = local.config.aws_region
   eks_admin_role_arn = dependency.iam.outputs.role_arn.eks_admin
   eks_cluster_name = dependency.k8s.outputs.cluster_name
+  external_secrets_names = local.config.external_secrets_names
 }

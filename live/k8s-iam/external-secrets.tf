@@ -1,9 +1,3 @@
-locals {
-  external_secrets_names = [
-    "github/p41-arc"
-  ]
-}
-
 module "external_secrets" {
   source                = "andreswebs/eks-irsa/aws"
   version               = "~> 1.0.0"
@@ -16,7 +10,7 @@ module "external_secrets" {
 module "external_secrets_policy_doc" {
   source       = "andreswebs/secrets-access-policy-document/aws"
   version      = "~> 1.0.0"
-  secret_names = local.external_secrets_names
+  secret_names = var.external_secrets_names
 }
 
 resource "aws_iam_role_policy" "external_secrets" {

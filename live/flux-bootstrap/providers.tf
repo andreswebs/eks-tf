@@ -43,7 +43,11 @@ provider "kubernetes" {
 
 provider "github" {
   owner = var.flux_github_owner
-  token = var.flux_github_token
+  app_auth {
+    id              = var.flux_github_app_id
+    installation_id = var.flux_github_app_installation_id
+    pem_file        = var.flux_github_app_private_key
+  }
 }
 
 provider "flux" {

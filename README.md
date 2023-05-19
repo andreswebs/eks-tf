@@ -20,10 +20,19 @@ This project assumes the following resources already exist:
 
 - a GitHub repository to be used by FluxCD to store k8s configurations;
 
-- a secret in AWS Secrets Manager containing a GitHub Personal Access Token with
-  repository admin permissions for the FluxCD repo mentioned above. The secret
-  name must be what is defined in the `live/config.yml` key
-  `github_token_secret`.
+- a secret in AWS Secrets Manager containing credentials for a GitHub App. The
+  GitHub App must have repository admin permissions for the FluxCD repo
+  mentioned above. The secret name must be what is defined in the
+  `live/config.yml` key `github_app_secret`. The secret's JSON value must
+  contain the following properties, whose values must be base64-encoded strings:
+
+```json
+{
+  "github_app_id_base64": "...",
+  "github_app_installation_id_base64": "...",
+  "github_app_private_key_base64": "..."
+}
+```
 
 ## Configuration
 
@@ -53,11 +62,11 @@ terragrunt run-all apply
 first:
   - iam
   - network
-  - route53: [ domain_name ]
+  - route53: [ config.domain_name ]
 
 second:
   - k8s: [ iam, network ]
-  - env-secrets: [ github_token_secret ]
+  - env-secrets: [ config.github_app_secret ]
 
 third:
   - flux-bootstrap: [ k8s, env-secrets ]

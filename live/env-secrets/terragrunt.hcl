@@ -8,5 +8,5 @@ locals {
 
 inputs = {
   aws_region = local.config.aws_region
-  github_token_secret = local.config.github_token_secret
+  github_app_secret = local.config.github_app_secret
 }

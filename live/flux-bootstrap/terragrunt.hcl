@@ -26,9 +26,10 @@ inputs = {
   aws_region = local.config.aws_region
   eks_admin_role_arn = dependency.iam.outputs.role_arn.eks_admin
   eks_cluster_name = dependency.k8s.outputs.cluster_name
-  flux_github_token = dependency.env_secrets.outputs.github_token
-  flux_github_owner = local.config.flux_github_owner
   flux_repository_name = local.config.flux_repository_name
   flux_git_branch = local.config.flux_git_branch
+  flux_github_owner = local.config.flux_github_owner
+  flux_github_app_id = dependency.env_secrets.outputs.github_app_id
+  flux_github_app_installation_id = dependency.env_secrets.outputs.github_app_installation_id
+  flux_github_app_private_key = dependency.env_secrets.outputs.github_app_private_key
 }
-

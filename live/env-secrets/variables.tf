@@ -1,5 +1,5 @@
-variable "github_token_secret" {
+variable "github_app_secret" {
   type        = string
-  description = "Name of a secret in AWS Secrets Manager storing a GitHub access token"
-  default     = "github-token"
+  description = "Name of a secret in AWS Secrets Manager storing GitHub App credentials"
+  default     = "github-app"
 }

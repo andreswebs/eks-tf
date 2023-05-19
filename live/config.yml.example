@@ -28,4 +28,4 @@ cluster_endpoint_public_access: true
 
 cluster_endpoint_public_access_cidrs: []
 
-github_token_secret: github-token
+github_app_secret: github-app

@@ -15,5 +15,6 @@ module "flux_secret" {
 }
 
 resource "flux_bootstrap_git" "this" {
-  path = "clusters/${var.eks_cluster_name}"
+  depends_on = [module.flux_secret]
+  path       = "clusters/${var.eks_cluster_name}"
 }

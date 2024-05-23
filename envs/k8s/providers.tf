@@ -12,10 +12,10 @@ provider "aws" {
   region = var.aws_region
 
   dynamic "assume_role" {
-    for_each = local.has_eks_admin_role ? [] : [1]
+    for_each = local.has_eks_admin_role ? [1] : [0]
     content {
       role_arn     = var.eks_admin_role_arn
-      session_name = "terraform"
+      session_name = var.aws_session_name
     }
   }
 

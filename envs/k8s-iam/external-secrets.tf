@@ -1,6 +1,6 @@
 module "external_secrets" {
   source                = "andreswebs/eks-irsa/aws"
-  version               = "~> 1.0.0"
+  version               = "~> 1.1.0"
   k8s_sa_name           = "external-secrets"
   k8s_sa_namespace      = "external-secrets"
   role_name             = "external-secrets-${var.eks_cluster_name}"
@@ -9,7 +9,7 @@ module "external_secrets" {
 
 module "external_secrets_policy_doc" {
   source       = "andreswebs/secrets-access-policy-document/aws"
-  version      = "~> 1.0.0"
+  version      = "~> 1.5.0"
   secret_names = var.external_secrets_names
 }
 

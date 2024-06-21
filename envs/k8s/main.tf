@@ -78,6 +78,12 @@ module "eks" {
       # })
     }
 
+    eks-pod-identity-agent = {
+      most_recent                 = true
+      resolve_conflicts_on_create = "OVERWRITE"
+      resolve_conflicts_on_update = "OVERWRITE"
+    }
+
   }
 
   vpc_id     = var.vpc_id

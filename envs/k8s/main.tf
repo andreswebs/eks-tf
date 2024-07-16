@@ -103,7 +103,7 @@ module "eks" {
   eks_managed_node_groups = {
     workers_default = {
       name             = "${var.eks_cluster_name}-worker"
-      use_name_prefix  = false
+      use_name_prefix  = true
       instance_types   = ["m7a.2xlarge"]
       desired_capacity = 2
       min_capacity     = 1

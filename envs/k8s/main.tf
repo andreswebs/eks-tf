@@ -101,7 +101,7 @@ module "eks" {
   }
 
   eks_managed_node_groups = {
-    workers_default = {
+    default = {
       name             = "${var.eks_cluster_name}-worker"
       use_name_prefix  = true
       instance_types   = ["m7a.xlarge"]

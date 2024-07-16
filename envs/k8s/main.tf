@@ -4,17 +4,6 @@ locals {
   has_eks_worker_role = var.eks_worker_role_arn != null && var.eks_worker_role_arn != ""
 }
 
-# provider "kubernetes" {
-#   host                   = module.eks.cluster_endpoint
-#   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-
-#   exec {
-#     api_version = "client.authentication.k8s.io/v1beta1"
-#     command     = "aws"
-#     args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
-#   }
-# }
-
 resource "aws_security_group" "eks_cluster_extra" {
   vpc_id = var.vpc_id
   name   = "${var.eks_cluster_name}-control-plane-extra"
@@ -38,7 +27,7 @@ resource "aws_vpc_security_group_ingress_rule" "eks_control_plane_whitelisted_ip
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.11" ## (last init: 2024-05-23)
+  version = "~> 20.19" ## (last init: 2024-07-16)
 
   cluster_name    = var.eks_cluster_name
   cluster_version = var.eks_cluster_version
@@ -113,7 +102,7 @@ module "eks" {
     workers_default = {
       name             = "${var.eks_cluster_name}-worker"
       use_name_prefix  = false
-      instance_types   = ["m6a.2xlarge"]
+      instance_types   = ["m7a.2xlarge"]
       desired_capacity = 2
       min_capacity     = 1
       max_capacity     = 3
@@ -128,7 +117,8 @@ module "eks" {
 }
 
 module "vpc_cni_irsa" {
-  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.41"
 
   role_name             = "${var.eks_cluster_name}-vpc-cni"
   attach_vpc_cni_policy = true

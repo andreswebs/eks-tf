@@ -104,10 +104,10 @@ module "eks" {
     workers_default = {
       name             = "${var.eks_cluster_name}-worker"
       use_name_prefix  = true
-      instance_types   = ["m7a.2xlarge"]
-      desired_capacity = 2
-      min_capacity     = 1
-      max_capacity     = 3
+      instance_types   = ["m7a.xlarge"]
+      desired_capacity = 3
+      min_capacity     = 2
+      max_capacity     = 5
       subnets          = var.private_subnets
     }
   }

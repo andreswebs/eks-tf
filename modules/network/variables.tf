@@ -1,8 +1,3 @@
-variable "eks_cluster_name" {
-  type    = string
-  default = null
-}
-
 variable "network_name" {
   type = string
 }
@@ -21,3 +16,19 @@ variable "public_subnets" {
   type    = list(string)
   default = ["10.20.11.0/24", "10.20.12.0/24", "10.20.13.0/24"]
 }
+
+variable "single_nat_gateway" {
+  type    = bool
+  default = false
+}
+
+variable "private_subnet_tags" {
+  type    = map(string)
+  default = {}
+}
+
+variable "public_subnet_tags" {
+  type    = map(string)
+  default = {}
+}
+

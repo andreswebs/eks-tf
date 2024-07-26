@@ -21,10 +21,6 @@ variable "vpc_id" {
   type = string
 }
 
-# variable "public_subnets" {
-#   type = list(string)
-# }
-
 variable "private_subnets" {
   type = list(string)
 }
@@ -37,11 +33,6 @@ variable "cluster_endpoint_public_access" {
 variable "cluster_endpoint_public_access_cidrs" {
   type    = list(string)
   default = []
-}
-
-variable "aws_session_name" {
-  type    = string
-  default = "terraform"
 }
 
 variable "whitelisted_cidrs_ipv4" {

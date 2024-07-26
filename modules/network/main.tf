@@ -8,17 +8,13 @@ locals {
 
 locals {
 
-  is_eks = var.eks_cluster_name != null && var.eks_cluster_name != ""
+  private_subnet_tags = merge(var.private_subnet_tags, {
+    "kubernetes.io/role/internal-elb" = 1
+  })
 
-  private_subnet_tags = local.is_eks ? {
-    "kubernetes.io/role/internal-elb"               = 1
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
-  } : null
-
-  public_subnet_tags = local.is_eks ? {
-    "kubernetes.io/role/elb"                        = 1
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
-  } : null
+  public_subnet_tags = merge(var.public_subnet_tags, {
+    "kubernetes.io/role/elb" = 1
+  })
 
 }
 
@@ -34,7 +30,7 @@ module "vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   enable_nat_gateway   = true
-  single_nat_gateway   = true
+  single_nat_gateway   = var.single_nat_gateway
 
   private_subnet_tags = local.private_subnet_tags
   public_subnet_tags  = local.public_subnet_tags

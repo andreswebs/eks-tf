@@ -20,7 +20,7 @@ variable "eks_worker_role_name" {
 
 variable "create_eks_admin_role" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "create_eks_worker_role" {

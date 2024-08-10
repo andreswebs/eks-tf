@@ -48,6 +48,7 @@ module "eks_worker" {
     "arn:${local.partition}:iam::aws:policy/AmazonEKSWorkerNodePolicy",
     "arn:${local.partition}:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
     "arn:${local.partition}:iam::aws:policy/AmazonEKS_CNI_Policy",
+    "arn:${local.partition}:iam::aws:policy/AWSAppMeshEnvoyAccess",
   ]
 }
 

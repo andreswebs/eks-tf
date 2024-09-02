@@ -4,11 +4,9 @@ module "iam" {
 }
 
 module "network" {
-  source       = "../../modules/network"
-  network_name = var.network_name
-  private_subnet_tags = {
-    "karpenter.sh/discovery" = var.eks_cluster_name
-  }
+  source           = "../../modules/network"
+  network_name     = var.network_name
+  eks_cluster_name = var.eks_cluster_name
 }
 
 module "eks" {

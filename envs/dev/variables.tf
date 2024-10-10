@@ -12,11 +12,6 @@ variable "eks_worker_role_arn" {
   default = null
 }
 
-variable "eks_admin_role_arn" {
-  type    = string
-  default = null
-}
-
 variable "vpc_id" {
   type = string
 }

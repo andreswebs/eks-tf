@@ -1,6 +1,5 @@
 module "iam" {
-  source = "../../modules/iam"
-  # eks_worker_role_name = "${var.eks_cluster_name}-node"
+  source                = "../../modules/iam"
   create_eks_admin_role = true
 }
 
